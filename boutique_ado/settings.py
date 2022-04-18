@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -59,13 +63,46 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request',  # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Tells allauth to allow authentication via email or username
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+# Tells allauth email required to register
+ACCOUNT_EMAIL_REQUIRED = True
+
+# Tells allauth verifying users email is required
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+# Tells allauth users have to enter email twice on registration page
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+
+# Username must have at least 4 characters
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+
+# Login URL
+LOGIN_URL = '/accounts/login/'
+
+# Redirect URL after login
+LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
