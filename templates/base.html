@@ -88,7 +88,7 @@
                     <!-- Shopping bag link. Django logic checks if grand total variable template exists, if it does
                     then we will display the total formatted to 2 decimal places, otherwise just show 0-->
                     <li class="list-inline-item">
-                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="">
+                        <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'view_bag' %}">
                             <div class="text-center">
                                 <div><i class="fas fa-shopping-bag fa-lg"></i></div>
                                 <p class="my-0">
